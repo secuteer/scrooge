@@ -1,21 +1,21 @@
 # scrooge
-_Detektion von Änderungen im Funktionsumfang von Web-Applikationen_
+_Detection of Changes in the Functionality of Web Applications_
 
 ## Installation
-### requirements.txt installieren für Python 3 
+### Install requirements.txt for Python 3 
 ```
 pip install -r ./requirements.txt
 ```
-### Proxy installieren
-Als Proxy Server wird [mitmproxy](https://mitmproxy.org/) verwendet.
-Installation auf Mac OS mit Homebrew:
+### Install Proxy
+The [mitmproxy](https://mitmproxy.org/) is used as the proxy server.
+Installation on Mac OS using Homebrew:
 ```
 brew install mitmproxy
 ```
-Installation für andere Systeme: https://docs.mitmproxy.org/stable/overview-installation/
+Installation for other systems: https://docs.mitmproxy.org/stable/overview-installation/
 
-### Webcrawler "CrawlJax" installieren
-Es wird eine installiertes JDK und Maven vorausgesetzt.
+### Install Webcrawler "CrawlJax"
+An installed JDK and Maven are required.
 ```
 cd crawler/CrawlJax
 mvn clean
@@ -23,29 +23,30 @@ mvn install
 mvn compile
 mvn assembly:single
 ```
-Es wird die .jar-Datei `./crawler/CrawlJax/target/CrawlJax-1.0-SNAPSHOT-jar-with-dependencies.jar` erstellt.
-Sollte sich der Dateipfad auf deinem System ändern, so musst du den Pfad in `main.py` anpassen.
 
-### Webcrawler "Black Widow" installieren
-Klone das Repository [BlackWidow](https://github.com/SecuringWeb/BlackWidow) in `./crawler/BlackWidow`.
-`./crawler/BlackWidow/crawl.y` muss folgendermassen angepasst werden:
+The .jar file `./crawler/CrawlJax/target/CrawlJax-1.0-SNAPSHOT-jar-with-dependencies.jar` will be created.
+If the file path changes on your system, you need to adjust the path in `main.py`.
+
+### Install Webcrawler "Black Widow"
+Clone the [BlackWidow](https://github.com/SecuringWeb/BlackWidow) repository into `./crawler/BlackWidow`.
+`./crawler/BlackWidow/crawl.py` needs to be adjusted as follows:
 
 ```
-parser.add_argument("--proxy", help="Proxy URL") # Argument für Proxy-Server URL hinzufügen
+parser.add_argument("--proxy", help="Proxy URL") # Add argument for proxy server URL
 ...
 proxy_server_url = args.proxy
 chrome_options.add_argument(f'--proxy-server={proxy_server_url}')
 ```
-Dadurch kann das der Proxy-Server mittels URL-Argument mitangegeben werden. 
+This allows the proxy server to be specified via the URL argument.
 
-Solltest du BlackWidow in einem anderern Pfad installieren, so musst du dies in `./main.py` anpassen.
-#### Hinweise zu BlackWidow
-* Für BlackWidow muss die Selenium-Version 4.2.0 installiert sein. Solltest du eine neuere Version installiert haben, so musst du diese downgraden.
+If you install BlackWidow in a different path, you need to adjust this in `./main.py`.
+#### Notes on BlackWidow
+* For BlackWidow, Selenium version 4.2.0 must be installed. If you have a newer version installed, you need to downgrade it.
 
 
 
 ## CLI-Tool
-Wenn alle schritte bei Installation durchgeführt wurden, kann nun das Tool ausgeführt werden. Probiere es besten gleich mal aus mit:
+If all the installation steps have been completed, you can now run the tool. Try it out with:
 ```
 python main.py help
 ```
@@ -62,13 +63,14 @@ Available commands:
 ```
 
 
-## Werkzeuge
-### Proxy manuell starten
+## Tools
+### Start Proxy Manually
 ```
-mitmdump -s ./proxy/proxy.py --set hardump=./har_exports/dump.har
+mitmdump --set hardump=./har_exports/dump.har
 ```
-Startet auf *:8080
-### Crawler manuell starten
+Starts on *:8080
+
+### Start Crawler Manually
 #### BlackWidow
 ```
 cd crawler/BlackWidow && python3 crawl.py --url {url}
